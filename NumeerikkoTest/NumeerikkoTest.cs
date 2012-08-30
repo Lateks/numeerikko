@@ -31,6 +31,20 @@ namespace NumeerikkoTest
 		}
 		
 		[Test]
+		public void TestHundreds()
+		{
+			Assert.That (converter.Convert (100), Is.EqualTo("sata"));
+			Assert.That (converter.Convert (200), Is.EqualTo("kaksisataa"));
+			Assert.That (converter.Convert (300), Is.EqualTo("kolmesataa"));
+			Assert.That (converter.Convert (400), Is.EqualTo("neljäsataa"));
+			Assert.That (converter.Convert (500), Is.EqualTo("viisisataa"));
+			Assert.That (converter.Convert (600), Is.EqualTo("kuusisataa"));
+			Assert.That (converter.Convert (700), Is.EqualTo("seitsemänsataa"));
+			Assert.That (converter.Convert (800), Is.EqualTo("kahdeksansataa"));
+			Assert.That (converter.Convert (900), Is.EqualTo("yhdeksänsataa"));
+		}
+		
+		[Test]
 		public void TestTens()
 		{
 			Assert.That (converter.Convert (10), Is.EqualTo("kymmenen"));
@@ -67,6 +81,16 @@ namespace NumeerikkoTest
 			Assert.That(converter.Convert(64), Is.EqualTo("kuusikymmentäneljä"));
 			Assert.That(converter.Convert(71), Is.EqualTo("seitsemänkymmentäyksi"));
 			Assert.That(converter.Convert(48), Is.EqualTo("neljäkymmentäkahdeksan"));
+		}
+		
+		[Test]
+		public void TestTripleDigits()
+		{
+			Assert.That(converter.Convert(125), Is.EqualTo("satakaksikymmentäviisi"));
+			Assert.That(converter.Convert(999), Is.EqualTo("yhdeksänsataayhdeksänkymmentäyhdeksän"));
+			Assert.That(converter.Convert(821), Is.EqualTo("kahdeksansataakaksikymmentäyksi"));
+			Assert.That(converter.Convert(640), Is.EqualTo("kuusisataaneljäkymmentä"));
+			Assert.That(converter.Convert(710), Is.EqualTo("seitsemänsataakymmenen"));
 		}
 	}
 }
