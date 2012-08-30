@@ -5,19 +5,20 @@ namespace Numeerikko
 {
 	public class NumberConverter
 	{
-		private static Dictionary<int, string> numberConversions = new Dictionary<int, string>()
+		private static string[] numberConversions = new string[]
 		{
-			{ 0, "nolla" },
-			{ 1, "yksi" },
-			{ 2, "kaksi" },
-			{ 3, "kolme" },
-			{ 4, "neljä" },
-			{ 5, "viisi" },
-			{ 6, "kuusi" },
-			{ 7, "seitsemän" },
-			{ 8, "kahdeksan" },
-			{ 9, "yhdeksän" },
-			{ 10, "kymmenen" }
+			"nolla", "yksi", "kaksi", "kolme", "neljä", "viisi",
+			"kuusi", "seitsemän", "kahdeksan", "yhdeksän", "kymmenen"
+		};
+		
+		private static string[] bigNumberEnds = new string[]
+		{
+			"", "tuhat"
+		};
+		
+		private static string[] bigNumberEndSuffixes = new string[]
+		{
+			"", "ta"
 		};
 		
 		public NumberConverter()
@@ -30,10 +31,48 @@ namespace Numeerikko
 			{
 				return ConvertTripleDigits(number);
 			}
+			else if (number >= 1000 && number < 1000000)
+			{
+				string result = "";
+				List<int> groupedNumber = GroupNumber(number);
+				for (int i = 0; i < groupedNumber.Count; i++)
+				{
+					if (groupedNumber[i] != 0)
+					{
+						string numberResult = "";
+						numberResult += groupedNumber[i] > 1 ? ConvertTripleDigits(groupedNumber[i]) : "";
+						numberResult += bigNumberEnds[i];
+						numberResult += groupedNumber[i] > 1 ? bigNumberEndSuffixes[i] : "";
+						result = numberResult + " " + result;
+					}
+				}
+				return result.Trim();
+			}
 			else
 			{
 				throw new NotImplementedException("This number is not supported.");
 			}
+		}
+		
+		private List<int> GroupNumber(int number)
+		{
+			string numberString = number.ToString();
+			List<int> groups = new List<int>();
+			
+			int currentIndex = numberString.Length;
+			while (currentIndex > 0)
+			{
+				currentIndex = currentIndex - 3;
+				int groupLength = 3;
+				if (currentIndex < 0)
+				{
+					groupLength = 3 + currentIndex;
+					currentIndex = 0;
+				}
+				int numberGroup = Int32.Parse(numberString.Substring(currentIndex, groupLength));
+				groups.Add(numberGroup);
+			}
+			return groups;
 		}
 		
 		private string ConvertTripleDigits(int number)
@@ -55,7 +94,7 @@ namespace Numeerikko
 			}
 			else
 			{
-				throw new NotImplementedException("I can only convert numbers that have up to three digits.");
+				throw new ArgumentException("I can only convert numbers that have up to three digits.");
 			}
 		}
 

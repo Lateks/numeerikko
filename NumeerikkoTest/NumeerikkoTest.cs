@@ -92,6 +92,18 @@ namespace NumeerikkoTest
 			Assert.That(converter.Convert(640), Is.EqualTo("kuusisataaneljäkymmentä"));
 			Assert.That(converter.Convert(710), Is.EqualTo("seitsemänsataakymmenen"));
 		}
+		
+		[Test]
+		public void TestThousands()
+		{
+			Assert.That(converter.Convert(1000), Is.EqualTo("tuhat"));
+			Assert.That(converter.Convert(3000), Is.EqualTo("kolmetuhatta"));
+			Assert.That(converter.Convert(4002), Is.EqualTo("neljätuhatta kaksi"));
+			Assert.That(converter.Convert(200789), Is.EqualTo("kaksisataatuhatta seitsemänsataakahdeksankymmentäyhdeksän"));
+			Assert.That(converter.Convert(121000), Is.EqualTo("satakaksikymmentäyksituhatta"));
+			Assert.That(converter.Convert(21230), Is.EqualTo("kaksikymmentäyksituhatta kaksisataakolmekymmentä"));
+			Assert.That(converter.Convert(999999), Is.EqualTo("yhdeksänsataayhdeksänkymmentäyhdeksäntuhatta yhdeksänsataayhdeksänkymmentäyhdeksän"));
+		}
 	}
 }
 
