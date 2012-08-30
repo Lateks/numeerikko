@@ -5,7 +5,7 @@ namespace Numeerikko
 {
 	public class NumberConverter
 	{
-		private static Dictionary<int, string> digits = new Dictionary<int, string>()
+		private static Dictionary<int, string> numberConversions = new Dictionary<int, string>()
 		{
 			{ 0, "nolla" },
 			{ 1, "yksi" },
@@ -16,7 +16,8 @@ namespace Numeerikko
 			{ 6, "kuusi" },
 			{ 7, "seitsemän" },
 			{ 8, "kahdeksan" },
-			{ 9, "yhdeksän" }
+			{ 9, "yhdeksän" },
+			{ 10, "kymmenen" }
 		};
 		
 		public NumberConverter()
@@ -25,13 +26,20 @@ namespace Numeerikko
 		
 		public string Convert(int number)
 		{
-			if (number >= 0 && number < 10)
+			if (number >= 0 && number <= 10)
 			{
-				return digits[number];
+				return numberConversions[number];
 			}
 			else if (number > 10 && number < 20)
 			{
-				return digits[number - 10] + "toista";
+				return numberConversions[number - 10] + "toista";
+			}
+			else if (number >= 20 && number < 100)
+			{
+				int firstDigit = number / 10;
+				int secondDigit = number - firstDigit * 10;
+				string suffix = secondDigit > 0 ? numberConversions[secondDigit] : "";
+				return numberConversions[firstDigit] + "kymmentä" + suffix;
 			}
 			else
 			{
