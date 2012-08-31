@@ -35,22 +35,25 @@ namespace Numeerikko
 			{
 				string result = "";
 				List<int> groupedNumber = GroupNumber(number);
-				for (int i = 0; i < groupedNumber.Count; i++)
+				for (int i = groupedNumber.Count - 1; i >= 0 ; i--)
 				{
 					if (groupedNumber[i] != 0)
 					{
-						string numberResult = "";
-						numberResult += groupedNumber[i] > 1 ? ConvertTripleDigits(groupedNumber[i]) : "";
-						numberResult += bigNumberEnds[i];
-						numberResult += groupedNumber[i] > 1 ? bigNumberEndSuffixes[i] : "";
-						result = numberResult + " " + result;
+						result += groupedNumber[i] > 1 ? ConvertTripleDigits(groupedNumber[i]) : "";
+						result += bigNumberEnds[i];
+						result += groupedNumber[i] > 1 ? bigNumberEndSuffixes[i] : "";
+						result += " ";
 					}
 				}
 				return result.Trim();
 			}
+			else if (number < 0)
+			{
+				throw new ArgumentException("Negative numbers are not supported.");
+			}
 			else
 			{
-				throw new NotImplementedException("This number is not supported.");
+				throw new ArgumentException("Number is too large.");
 			}
 		}
 		
@@ -104,7 +107,7 @@ namespace Numeerikko
 			{
 				return numberConversions[number];
 			}
-			if (number > 10 && number < 20)
+			else if (number > 10 && number < 20)
 			{
 				return numberConversions[number - 10] + "toista";
 			}

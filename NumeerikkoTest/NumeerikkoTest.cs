@@ -104,6 +104,12 @@ namespace NumeerikkoTest
 			Assert.That(converter.Convert(21230), Is.EqualTo("kaksikymmentäyksituhatta kaksisataakolmekymmentä"));
 			Assert.That(converter.Convert(999999), Is.EqualTo("yhdeksänsataayhdeksänkymmentäyhdeksäntuhatta yhdeksänsataayhdeksänkymmentäyhdeksän"));
 		}
+		
+		[Test]
+		public void NegativeNumbersCauseAnException()
+		{
+			Assert.Throws<ArgumentException>(() => converter.Convert(-1));
+		}
 	}
 }
 
