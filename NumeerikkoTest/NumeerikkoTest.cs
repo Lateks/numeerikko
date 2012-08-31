@@ -136,6 +136,18 @@ namespace NumeerikkoTest
 				nineHundredNinetyNine + " biljoonaa " + nineHundredNinetyNine + " miljardia " +
 				nineHundredNinetyNine + " miljoonaa " + nineHundredNinetyNine + "tuhatta " +
 				nineHundredNinetyNine));
+			Assert.That(converter.Convert(200000000000000000), Is.EqualTo("kaksisataatuhatta biljoonaa"));
+		}
+		
+		[Test]
+		public void TestTrillions()
+		{
+			Assert.That(converter.Convert(1000000000000000000), Is.EqualTo("triljoona"));
+			Assert.That(converter.Convert(3000000000000000000), Is.EqualTo("kolme triljoonaa"));
+			Assert.That(converter.Convert(ulong.MaxValue), Is.EqualTo(
+				"kahdeksantoista triljoonaa neljäsataaneljäkymmentäkuusituhatta " +
+				"seitsemänsataaneljäkymmentäneljä biljoonaa seitsemänkymmentäkolme miljardia " +
+				"seitsemänsataayhdeksän miljoonaa viisisataaviisikymmentäyksituhatta kuusisataaviisitoista"));
 		}
 	}
 }

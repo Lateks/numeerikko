@@ -13,15 +13,8 @@ namespace Numeerikko
 		
 		private static string[] bigNumberEnds = new string[]
 		{
-			"", "tuhat", "miljoona", "miljardi", "biljoona"
+			"", "tuhat", "miljoona", "miljardi", "biljoona", "tuhat", "triljoona"
 		};
-		
-		private static string[] bigNumberEndSuffixes = new string[]
-		{
-			"", "ta", "a", "a", "a"
-		};
-		
-		private static ulong thousandBillion = 1000000000000000;
 		
 		public NumberConverter()
 		{
@@ -33,27 +26,35 @@ namespace Numeerikko
 			{
 				return ConvertTripleDigits((int) number);
 			}
-			else if (number >= 1000 && number < thousandBillion)
-			{
-				string result = "";
-				List<int> groupedNumber = GroupNumber(number);
-				for (int i = groupedNumber.Count - 1; i >= 0 ; i--)
-				{
-					if (groupedNumber[i] != 0)
-					{
-						result += groupedNumber[i] > 1 ? ConvertTripleDigits(groupedNumber[i]) : "";
-						result += i > 1 ? " " : "";
-						result += bigNumberEnds[i];
-						result += groupedNumber[i] > 1 ? bigNumberEndSuffixes[i] : "";
-						result += " ";
-					}
-				}
-				return result.Trim();
-			}
 			else
 			{
-				throw new ArgumentException("Number is too large.");
+				return ConvertBigNumber(number);
 			}
+		}
+		
+		private string ConvertBigNumber(ulong number)
+		{
+			string result = "";
+			List<int> groupedNumber = GroupNumber(number);
+
+			int startIndex = groupedNumber.Count - 1;
+			for (int i = startIndex; i >= 0; i--) {
+				if (groupedNumber [i] != 0 || (i == 4 && startIndex > i && groupedNumber[i+1] > 0)) {
+					int num = groupedNumber [i];
+					string bignumSuffix = bigNumberEnds[i];
+					
+					if (num > 1) {
+						result += ConvertTripleDigits(num);
+						result += i > 1 && bignumSuffix != "tuhat" ? " " : "";
+					}
+					result += bignumSuffix;
+					if ((num > 1 && i > 0) || (i == 4 && startIndex > i)) {
+						result += bignumSuffix == "tuhat" ? "ta" : "a";
+					} 
+					result += " ";
+				}
+			}
+			return result.Trim ();
 		}
 		
 		private List<int> GroupNumber(ulong number)
