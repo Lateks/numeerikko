@@ -11,7 +11,7 @@ namespace Numeerikko
 			"kuusi", "seitsemän", "kahdeksan", "yhdeksän", "kymmenen"
 		};
 		
-		private static string[] bigNumberEnds = new string[]
+		private static string[] bigNumberSuffixes = new string[]
 		{
 			"", "tuhat", "miljoona", "miljardi", "biljoona", "tuhat", "triljoona"
 		};
@@ -39,9 +39,10 @@ namespace Numeerikko
 
 			int startIndex = groupedNumber.Count - 1;
 			for (int i = startIndex; i >= 0; i--) {
-				if (groupedNumber [i] != 0 || (i == 4 && startIndex > i && groupedNumber[i+1] > 0)) {
+				bool hasThousandsAsModifier = i == 4 && startIndex > i && groupedNumber[i+1] > 0;
+				if (groupedNumber[i] != 0 || hasThousandsAsModifier) {
 					int num = groupedNumber [i];
-					string bignumSuffix = bigNumberEnds[i];
+					string bignumSuffix = bigNumberSuffixes[i];
 					
 					if (num > 1) {
 						result += ConvertTripleDigits(num);

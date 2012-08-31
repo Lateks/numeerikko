@@ -144,7 +144,7 @@ namespace NumeerikkoTest
 		{
 			Assert.That(converter.Convert(1000000000000000000), Is.EqualTo("triljoona"));
 			Assert.That(converter.Convert(3000000000000000000), Is.EqualTo("kolme triljoonaa"));
-			Assert.That(converter.Convert(ulong.MaxValue), Is.EqualTo(
+			Assert.That(converter.Convert(UInt64.MaxValue), Is.EqualTo(
 				"kahdeksantoista triljoonaa neljäsataaneljäkymmentäkuusituhatta " +
 				"seitsemänsataaneljäkymmentäneljä biljoonaa seitsemänkymmentäkolme miljardia " +
 				"seitsemänsataayhdeksän miljoonaa viisisataaviisikymmentäyksituhatta kuusisataaviisitoista"));
