@@ -13,25 +13,27 @@ namespace Numeerikko
 		
 		private static string[] bigNumberEnds = new string[]
 		{
-			"", "tuhat"
+			"", "tuhat", "miljoona", "miljardi", "biljoona"
 		};
 		
 		private static string[] bigNumberEndSuffixes = new string[]
 		{
-			"", "ta"
+			"", "ta", "a", "a", "a"
 		};
+		
+		private static ulong thousandBillion = 1000000000000000;
 		
 		public NumberConverter()
 		{
 		}
 		
-		public string Convert(int number)
+		public string Convert(ulong number)
 		{
 			if (number >= 0 && number < 1000)
 			{
-				return ConvertTripleDigits(number);
+				return ConvertTripleDigits((int) number);
 			}
-			else if (number >= 1000 && number < 1000000)
+			else if (number >= 1000 && number < thousandBillion)
 			{
 				string result = "";
 				List<int> groupedNumber = GroupNumber(number);
@@ -40,6 +42,7 @@ namespace Numeerikko
 					if (groupedNumber[i] != 0)
 					{
 						result += groupedNumber[i] > 1 ? ConvertTripleDigits(groupedNumber[i]) : "";
+						result += i > 1 ? " " : "";
 						result += bigNumberEnds[i];
 						result += groupedNumber[i] > 1 ? bigNumberEndSuffixes[i] : "";
 						result += " ";
@@ -47,17 +50,13 @@ namespace Numeerikko
 				}
 				return result.Trim();
 			}
-			else if (number < 0)
-			{
-				throw new ArgumentException("Negative numbers are not supported.");
-			}
 			else
 			{
 				throw new ArgumentException("Number is too large.");
 			}
 		}
 		
-		private List<int> GroupNumber(int number)
+		private List<int> GroupNumber(ulong number)
 		{
 			string numberString = number.ToString();
 			List<int> groups = new List<int>();

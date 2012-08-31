@@ -106,9 +106,36 @@ namespace NumeerikkoTest
 		}
 		
 		[Test]
-		public void NegativeNumbersCauseAnException()
+		public void TestMillions()
 		{
-			Assert.Throws<ArgumentException>(() => converter.Convert(-1));
+			Assert.That(converter.Convert(1000000), Is.EqualTo("miljoona"));
+			Assert.That(converter.Convert(3000000), Is.EqualTo("kolme miljoonaa"));
+			Assert.That(converter.Convert(40000002), Is.EqualTo("neljäkymmentä miljoonaa kaksi"));
+			Assert.That(converter.Convert(1300071), Is.EqualTo("miljoona kolmesataatuhatta seitsemänkymmentäyksi"));
+		}
+		
+		[Test]
+		public void TestMilliards()
+		{
+			Assert.That(converter.Convert(1000000000), Is.EqualTo("miljardi"));
+			Assert.That(converter.Convert(3000000000), Is.EqualTo("kolme miljardia"));
+			Assert.That(converter.Convert(40000000002), Is.EqualTo("neljäkymmentä miljardia kaksi"));
+			Assert.That(converter.Convert(1010300071), Is.EqualTo("miljardi kymmenen miljoonaa kolmesataatuhatta seitsemänkymmentäyksi"));
+		}
+		
+		[Test]
+		public void TestBillions()
+		{
+			Assert.That(converter.Convert(1000000000000), Is.EqualTo("biljoona"));
+			Assert.That(converter.Convert(3000000000000), Is.EqualTo("kolme biljoonaa"));
+			Assert.That(converter.Convert(40000000000002), Is.EqualTo("neljäkymmentä biljoonaa kaksi"));
+			Assert.That(converter.Convert(1003010300071), Is.EqualTo("biljoona kolme miljardia kymmenen miljoonaa kolmesataatuhatta seitsemänkymmentäyksi"));
+			
+			string nineHundredNinetyNine = "yhdeksänsataayhdeksänkymmentäyhdeksän";
+			Assert.That(converter.Convert(999999999999999), Is.EqualTo(
+				nineHundredNinetyNine + " biljoonaa " + nineHundredNinetyNine + " miljardia " +
+				nineHundredNinetyNine + " miljoonaa " + nineHundredNinetyNine + "tuhatta " +
+				nineHundredNinetyNine));
 		}
 	}
 }
