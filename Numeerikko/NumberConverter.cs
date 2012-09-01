@@ -46,7 +46,7 @@ namespace Numeerikko
 					}
 					result += bigNumberSuffixes[i];
 					
-					if ((num > 1) || HasThousandsAsModifier(groupedNumber, i)) {
+					if (num > 1 || HasThousandsAsModifier(groupedNumber, i)) {
 						result += InflectionalSuffixFor(i);
 					} 
 					result += " ";
