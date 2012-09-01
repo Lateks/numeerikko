@@ -33,29 +33,29 @@ namespace NumeerikkoTest
 		[Test]
 		public void TestHundreds()
 		{
-			Assert.That (converter.Convert (100), Is.EqualTo("sata"));
-			Assert.That (converter.Convert (200), Is.EqualTo("kaksisataa"));
-			Assert.That (converter.Convert (300), Is.EqualTo("kolmesataa"));
-			Assert.That (converter.Convert (400), Is.EqualTo("neljäsataa"));
-			Assert.That (converter.Convert (500), Is.EqualTo("viisisataa"));
-			Assert.That (converter.Convert (600), Is.EqualTo("kuusisataa"));
-			Assert.That (converter.Convert (700), Is.EqualTo("seitsemänsataa"));
-			Assert.That (converter.Convert (800), Is.EqualTo("kahdeksansataa"));
-			Assert.That (converter.Convert (900), Is.EqualTo("yhdeksänsataa"));
+			Assert.That (converter.Convert(100), Is.EqualTo("sata"));
+			Assert.That (converter.Convert(200), Is.EqualTo("kaksisataa"));
+			Assert.That (converter.Convert(300), Is.EqualTo("kolmesataa"));
+			Assert.That (converter.Convert(400), Is.EqualTo("neljäsataa"));
+			Assert.That (converter.Convert(500), Is.EqualTo("viisisataa"));
+			Assert.That (converter.Convert(600), Is.EqualTo("kuusisataa"));
+			Assert.That (converter.Convert(700), Is.EqualTo("seitsemänsataa"));
+			Assert.That (converter.Convert(800), Is.EqualTo("kahdeksansataa"));
+			Assert.That (converter.Convert(900), Is.EqualTo("yhdeksänsataa"));
 		}
 		
 		[Test]
 		public void TestTens()
 		{
-			Assert.That (converter.Convert (10), Is.EqualTo("kymmenen"));
-			Assert.That (converter.Convert (20), Is.EqualTo("kaksikymmentä"));
-			Assert.That (converter.Convert (30), Is.EqualTo("kolmekymmentä"));
-			Assert.That (converter.Convert (40), Is.EqualTo("neljäkymmentä"));
-			Assert.That (converter.Convert (50), Is.EqualTo("viisikymmentä"));
-			Assert.That (converter.Convert (60), Is.EqualTo("kuusikymmentä"));
-			Assert.That (converter.Convert (70), Is.EqualTo("seitsemänkymmentä"));
-			Assert.That (converter.Convert (80), Is.EqualTo("kahdeksankymmentä"));
-			Assert.That (converter.Convert (90), Is.EqualTo("yhdeksänkymmentä"));
+			Assert.That (converter.Convert(10), Is.EqualTo("kymmenen"));
+			Assert.That (converter.Convert(20), Is.EqualTo("kaksikymmentä"));
+			Assert.That (converter.Convert(30), Is.EqualTo("kolmekymmentä"));
+			Assert.That (converter.Convert(40), Is.EqualTo("neljäkymmentä"));
+			Assert.That (converter.Convert(50), Is.EqualTo("viisikymmentä"));
+			Assert.That (converter.Convert(60), Is.EqualTo("kuusikymmentä"));
+			Assert.That (converter.Convert(70), Is.EqualTo("seitsemänkymmentä"));
+			Assert.That (converter.Convert(80), Is.EqualTo("kahdeksankymmentä"));
+			Assert.That (converter.Convert(90), Is.EqualTo("yhdeksänkymmentä"));
 		}
 		
 		[Test]
@@ -144,6 +144,7 @@ namespace NumeerikkoTest
 		{
 			Assert.That(converter.Convert(1000000000000000000), Is.EqualTo("triljoona"));
 			Assert.That(converter.Convert(3000000000000000000), Is.EqualTo("kolme triljoonaa"));
+			Assert.That(converter.Convert(1000001000000000000), Is.EqualTo("triljoona biljoona"));
 			Assert.That(converter.Convert(UInt64.MaxValue), Is.EqualTo(
 				"kahdeksantoista triljoonaa neljäsataaneljäkymmentäkuusituhatta " +
 				"seitsemänsataaneljäkymmentäneljä biljoonaa seitsemänkymmentäkolme miljardia " +

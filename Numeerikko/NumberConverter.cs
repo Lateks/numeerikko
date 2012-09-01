@@ -37,25 +37,47 @@ namespace Numeerikko
 			string result = "";
 			List<int> groupedNumber = GroupNumber(number);
 
-			int startIndex = groupedNumber.Count - 1;
-			for (int i = startIndex; i >= 0; i--) {
-				bool hasThousandsAsModifier = i == 4 && startIndex > i && groupedNumber[i+1] > 0;
-				if (groupedNumber[i] != 0 || hasThousandsAsModifier) {
-					int num = groupedNumber [i];
-					string bignumSuffix = bigNumberSuffixes[i];
-					
+			for (int i = groupedNumber.Count - 1; i >= 0; i--) {
+				if (ShouldPrintNumber(groupedNumber, i)) {
+					int num = groupedNumber[i];
 					if (num > 1) {
 						result += ConvertTripleDigits(num);
-						result += i > 1 && bignumSuffix != "tuhat" ? " " : "";
+						result += ShouldPrintSpaceBeforeSuffix(i) ? " " : "";
 					}
-					result += bignumSuffix;
-					if ((num > 1 && i > 0) || (i == 4 && startIndex > i)) {
-						result += bignumSuffix == "tuhat" ? "ta" : "a";
+					result += bigNumberSuffixes[i];
+					
+					if ((num > 1) || HasThousandsAsModifier(groupedNumber, i)) {
+						result += InflectionalSuffixFor(i);
 					} 
 					result += " ";
 				}
 			}
-			return result.Trim ();
+			return result.Trim();
+		}
+		
+		private string InflectionalSuffixFor(int suffixIndex)
+		{
+			if (suffixIndex == 0)
+			{
+				return "";
+			}
+			return bigNumberSuffixes[suffixIndex] == "tuhat" ? "ta" : "a";
+		}
+		
+		private bool ShouldPrintSpaceBeforeSuffix(int suffixIndex)
+		{
+			return suffixIndex > 1 && bigNumberSuffixes[suffixIndex] != "tuhat";
+		}
+		
+		private bool ShouldPrintNumber(List<int> groupedNumber, int index)
+		{
+			return groupedNumber[index] != 0 || HasThousandsAsModifier(groupedNumber, index);
+		}
+		
+		private bool HasThousandsAsModifier(List<int> groupedNumber, int index)
+		{
+			return index == 4 && groupedNumber.Count - 1 > index &&
+				groupedNumber[index+1] > 0;
 		}
 		
 		private List<int> GroupNumber(ulong number)
